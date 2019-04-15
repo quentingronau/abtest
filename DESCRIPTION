@@ -1,0 +1,25 @@
+Package: abtest
+Type: Package
+Title: Bayesian A/B Testing
+Version: 0.1.0
+Authors@R: c(person(given="Quentin F.", family="Gronau", role=c("aut", "cre"),
+             email="Quentin.F.Gronau@gmail.com"),
+             person(given="Akash", family="Raj", role="ctb"),
+             person(given="Eric-Jan", family="Wagenmakers", role="ths"))
+Description: Provides functions for Bayesian A/B testing including prior elicitation options.
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.0.0)
+Imports: Rcpp (>= 0.12.14),
+         mvtnorm,
+         sn,
+         VGAM,
+         truncnorm,
+         plotrix,
+         grDevices,
+         RColorBrewer,
+         Matrix
+LinkingTo: Rcpp
+RoxygenNote: 6.1.0
+Suggests: testthat

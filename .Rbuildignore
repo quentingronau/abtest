@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+development.R
+examples
+README.md
+CONDUCT.md

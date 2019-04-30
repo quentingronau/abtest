@@ -5,7 +5,7 @@
 \title{Prior Quantile Function}
 \usage{
 qprior(p, prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0,
-  sigma_beta = 1), what = "arisk", hypothesis = "H1")
+  sigma_beta = 1), what = "logor", hypothesis = "H1")
 }
 \arguments{
 \item{p}{numeric vector with probabilities.}

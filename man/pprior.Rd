@@ -5,7 +5,7 @@
 \title{Prior Cumulative Distribution Function (CDF)}
 \usage{
 pprior(q, prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0,
-  sigma_beta = 1), what = "arisk", hypothesis = "H1")
+  sigma_beta = 1), what = "logor", hypothesis = "H1")
 }
 \arguments{
 \item{q}{numeric vector with quantiles.}

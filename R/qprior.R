@@ -30,7 +30,7 @@
 qprior <- function(p,
                    prior_par = list(mu_psi = 0, sigma_psi = 1,
                                     mu_beta = 0, sigma_beta = 1),
-                   what = "arisk",
+                   what = "logor",
                    hypothesis = "H1") {
 
 

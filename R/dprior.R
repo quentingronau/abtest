@@ -38,7 +38,7 @@
 #' @return numeric vector with the values of the prior density.
 #'
 #' @note Internally, the test-relevant prior is always a normal prior on the log
-#'   odds ratio, consequentlty, if \code{what} is not \code{"logor"}, the
+#'   odds ratio, consequently, if \code{what} is not \code{"logor"}, the
 #'   implied prior density for the quantity is returned.
 #'
 #' @author Quentin F. Gronau
@@ -48,7 +48,7 @@ dprior <- function(x1,
                    x2 = NULL,
                    prior_par = list(mu_psi = 0, sigma_psi = 1,
                                     mu_beta = 0, sigma_beta = 1),
-                   what = "arisk",
+                   what = "logor",
                    hypothesis = "H1") {
 
 

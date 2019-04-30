@@ -4,7 +4,7 @@
 \alias{elicit_prior}
 \title{Elicit Prior}
 \usage{
-elicit_prior(q, prob, what = "arisk", hypothesis = "H1", mu_beta = 0,
+elicit_prior(q, prob, what = "logor", hypothesis = "H1", mu_beta = 0,
   sigma_beta = 1)
 }
 \arguments{

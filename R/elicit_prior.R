@@ -64,7 +64,7 @@
 #' @export
 elicit_prior <- function(q,
                          prob,
-                         what = "arisk",
+                         what = "logor",
                          hypothesis = "H1",
                          mu_beta = 0,
                          sigma_beta = 1) {

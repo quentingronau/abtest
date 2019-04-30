@@ -41,7 +41,7 @@ Function for evaluating the prior cumulative distribution function (CDF).
 }
 \note{
 Internally, the test-relevant prior is always a normal prior on the log
-  odds ratio, consequentlty, if \code{what} is not \code{"logor"}, the
+  odds ratio, consequently, if \code{what} is not \code{"logor"}, the
   implied prior CDF for the quantity is returned.
 }
 \examples{

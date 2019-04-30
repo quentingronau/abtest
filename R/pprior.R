@@ -25,7 +25,7 @@
 #'
 #' @return numeric vector with the values of the prior CDF.
 #' @note Internally, the test-relevant prior is always a normal prior on the log
-#'   odds ratio, consequentlty, if \code{what} is not \code{"logor"}, the
+#'   odds ratio, consequently, if \code{what} is not \code{"logor"}, the
 #'   implied prior CDF for the quantity is returned.
 #' @author Quentin F. Gronau
 #' @example examples/example.pprior.R

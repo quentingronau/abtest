@@ -5,8 +5,8 @@
 #' @param x object of class \code{"ab"}. Note that the \code{"ab"} object needs
 #'   to contain sequential data, that is, the user needs to have provided
 #'   cumulative sequences of "successes"/trials.
-#' @param thin allows the user to skip every \eqn{x}th data point for plotting,
-#'   where the number \eqn{x} is specified via \code{thin}. For instance, in
+#' @param thin allows the user to skip every \eqn{k}th data point for plotting,
+#'   where the number \eqn{k} is specified via \code{thin}. For instance, in
 #'   case \code{thin = 2}, only every second element of the data is displayed.
 #' @param ... further arguments
 #' @details The plot shows the posterior probabilities of the hypotheses as a

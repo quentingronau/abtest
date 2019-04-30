@@ -10,7 +10,7 @@ prob_wheel(x, type = "posterior")
 \item{x}{object of class \code{"ab"}.}
 
 \item{type}{character indicating whether to plot a probability wheel
-visualizing the prior probbailities of the hypotheses (i.e., \code{type =
+visualizing the prior probabilities of the hypotheses (i.e., \code{type =
 "prior"}) or the posterior probabilities of the hypotheses (i.e.,
 \code{type = "posterior"}). The default is \code{"posterior"}.}
 }

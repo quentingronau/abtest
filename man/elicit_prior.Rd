@@ -86,7 +86,7 @@ plot_prior(prior_par = prior_par, what = "logor")
 Kass, R. E., & Vaidyanathan, S. K. (1992). Approximate Bayes
   factors and orthogonal parameters, with application to testing equality of
   two binomial proportions. \emph{Journal of the Royal Statistical Society,
-  Series B, 54}, 129-144.
+  Series B, 54}, 129-144. <doi:10.1111/j.2517-6161.1992.tb01868.x.>
 }
 \seealso{
 The \code{\link{plot_prior}} function allows the user to visualize

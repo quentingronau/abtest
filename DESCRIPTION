@@ -6,7 +6,7 @@ Authors@R: c(person(given="Quentin F.", family="Gronau", role=c("aut", "cre"),
              email="Quentin.F.Gronau@gmail.com"),
              person(given="Akash", family="Raj", role="ctb"),
              person(given="Eric-Jan", family="Wagenmakers", role="ths"))
-Description: Provides functions for Bayesian A/B testing including prior elicitation options based on Kass and Vaidyanathan (1992) <doi:10.1111/j.2517-6161.1992.tb01868.x.>.
+Description: Provides functions for Bayesian A/B testing including prior elicitation options based on Kass and Vaidyanathan (1992) <doi:10.1111/j.2517-6161.1992.tb01868.x>.
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true

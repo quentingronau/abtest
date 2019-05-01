@@ -11,7 +11,7 @@ plot_posterior(x = ab, what = "p1p2")
 plot_posterior(x = ab, what = "rrisk")
 plot_posterior(x = ab, what = "arisk")
 
-/donttest{
+\donttest{
   # example of good width and height values for saving to file
   cairo_pdf(file.path(tempdir(), "test_plot.pdf"),
             width = 530 / 72, height = 400 / 72)

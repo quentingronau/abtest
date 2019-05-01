@@ -64,10 +64,13 @@ plot_posterior(x = ab, what = "p1p2")
 plot_posterior(x = ab, what = "rrisk")
 plot_posterior(x = ab, what = "arisk")
 
-# # example of good width and height values for saving to file
-# cairo_pdf("test_plot.pdf", width = 530 / 72, height = 400 / 72)
-# plot_posterior(ab, what = "p1p2")
-# dev.off()
+/donttest{
+  # example of good width and height values for saving to file
+  cairo_pdf(file.path(tempdir(), "test_plot.pdf"),
+            width = 530 / 72, height = 400 / 72)
+  plot_posterior(ab, what = "p1p2")
+  dev.off()
+}
 }
 \author{
 Quentin F. Gronau

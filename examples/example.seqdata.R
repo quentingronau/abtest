@@ -1,5 +1,4 @@
-\dontrun{
-
+\donttest{
 data(seqdata)
 
 # conduct Bayesian A/B test with default settings
@@ -14,5 +13,4 @@ cairo_pdf(file.path(tempdir(), "test_plot.pdf"),
           width = 530 / 72, height = 400 / 72)
 plot_sequential(ab)
 dev.off()
-
 }

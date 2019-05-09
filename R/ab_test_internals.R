@@ -200,7 +200,7 @@ inverse_hessian_minl <- function(par, data, sigma_beta = 1,
 
   det_hessian <- det_hessian_minl(par = par, data = data,
                                   sigma_beta = sigma_beta,
-                                  sigma_psi = sigma_beta)
+                                  sigma_psi = sigma_psi)
 
   partial_beta2 <-  (n1 * exp(beta - .5 * psi)) /
     (1 + exp(beta - .5 * psi))^2 + (n2 * exp(beta + .5 * psi)) /
@@ -350,12 +350,12 @@ inverse_hessian_minlplus <- function(par, data, sigma_beta = 1, mu_psi = 0,
   det_hessian <- det_hessian_minlplus(par = par, data = data,
                                       sigma_beta = sigma_beta,
                                       mu_psi = mu_psi,
-                                      sigma_psi = sigma_beta)
+                                      sigma_psi = sigma_psi)
 
   hessian <- hessian_minlplus(par = par, data = data,
                               sigma_beta = sigma_beta,
                               mu_psi = mu_psi,
-                              sigma_psi = sigma_beta)
+                              sigma_psi = sigma_psi)
 
   inv_hessian <- 1 / det_hessian *
     matrix(c(hessian[2,2], rep(- hessian[1,2], 2),
@@ -489,12 +489,12 @@ inverse_hessian_minlminus <- function(par, data, sigma_beta = 1,
   det_hessian <- det_hessian_minlminus(par = par, data = data,
                                        sigma_beta = sigma_beta,
                                        mu_psi = mu_psi,
-                                       sigma_psi = sigma_beta)
+                                       sigma_psi = sigma_psi)
 
   hessian <- hessian_minlminus(par = par, data = data,
                                sigma_beta = sigma_beta,
                                mu_psi = mu_psi,
-                               sigma_psi = sigma_beta)
+                               sigma_psi = sigma_psi)
 
   inv_hessian <- 1 / det_hessian *
     matrix(c(hessian[2,2], rep(- hessian[1,2], 2),

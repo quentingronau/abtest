@@ -5,15 +5,25 @@
 #' @param object,x object of class \code{ab} as returned from
 #'   \code{\link{ab_test}}.
 #' @param digits number of digits to print for the summary.
+#' @param raw if \code{TRUE}, the raw posterior samples are used to estimate the
+#'   mean, sd, and quantiles for the summary of the posterior. If \code{FALSE},
+#'   parametric fits to the marginal posteriors are used to obtain the mean, sd,
+#'   and quantiles. Specifically, a normal distribution is fitted for \code{psi
+#'   (logor)} and \code{beta}; a log-normal distribution is fitted for \code{or}
+#'   and \code{rrisk}; beta distributions are fitted for \code{p1} and
+#'   \code{p2}; a scaled beta distribution is fitted for \code{arisk}. These
+#'   distributional fits are also used in \code{\link{plot_posterior}}.
 #' @param ... further arguments, currently ignored.
 #'
 #' @return The \code{summary} methods returns the \code{ab} object that is
 #'   guaranteed to contain posterior samples (i.e., it adds posterior samples if
-#'   they were not included already). Additionally, the list output contains the
-#'   number of digits to print for the posterior summary.
+#'   they were not included already). Additionally, it adds to the object a
+#'   posterior summary matrix (i.e., \code{ab$post$post_summary}) for the
+#'   posterior under H1 and the arguments \code{digits} (used for printing) and
+#'   \code{raw} (under \code{ab$input}).
 #'
-#'   The \code{print} methods simply print and return nothing.
-#'
+#'   The \code{print} methods simply print and return nothing. Likewise, the
+#'   \code{plot} method simply plots and returns nothing.
 #'
 #' @name ab-methods
 NULL
@@ -24,7 +34,7 @@ NULL
 #' @rdname ab-methods
 #' @method summary ab
 #' @export
-summary.ab <- function(object, digits = 3, ...) {
+summary.ab <- function(object, digits = 3, raw = FALSE, ...) {
 
   # make sure that object contains posterior samples
   if ( ! object$input$posterior) {
@@ -36,9 +46,42 @@ summary.ab <- function(object, digits = 3, ...) {
                  posterior = TRUE)
   }
 
-  out <- object
-  out$digits <- digits
+  # obtain posterior summary under H1
+  pars <- c("beta", "psi (logor)", "or", "arisk", "rrisk", "p1", "p2")
+  post_summary <- matrix(nrow = length(pars), ncol = 7)
+  rownames(post_summary) <- pars
+  colnames(post_summary) <- c("mean", "sd", "2.5%", "25%", "50%", "75%", "97.5%")
+  p <- c(0.025, 0.25, 0.5, 0.75, 0.975)
 
+  if ( ! raw) {
+    fit <- vector("list", 7)
+    names(fit) <- pars
+    for (i in pars) {
+      whati <- ifelse(i == "psi (logor)",  "logor", i)
+      fit[[i]] <- fitdist(post_samples = object$post$H1, what = whati)
+      post_summary[i, "mean"] <- mean_posterior(fit = fit[[i]])
+      post_summary[i, "sd"] <- sd_posterior(fit = fit[[i]])
+      post_summary[i,3:7] <- qposterior(p = p, what = whati,
+                                       fit = fit[[i]],
+                                       hypothesis = "H1")
+    }
+  } else {
+    for (i in pars) {
+      if (i == "psi (logor)") {
+        s <- object$post$H1[["logor"]]
+      } else {
+        s <- object$post$H1[[i]]
+      }
+      post_summary[i, "mean"] <- mean(s)
+      post_summary[i, "sd"] <- sd(s)
+      post_summary[i,3:7] <- quantile(s, probs = p)
+    }
+  }
+
+  out <- object
+  out$post[["post_summary"]] <- post_summary
+  out$input$digits <- digits
+  out$input$raw <- raw
   class(out) <- "summary.ab"
   return(out)
 
@@ -54,47 +97,26 @@ print.summary.ab <- function(x, ...) {
   index <- x$input$prior_prob != 0
   hypotheses <- names(x$input$prior_prob)
 
-  # obtain summary posterior under H1
-  pars <- c("psi", "beta", "logor", "or", "arisk", "rrisk", "p1", "p2")
-  post_matrix <- matrix(nrow = 8, ncol = 7)
-  rownames(post_matrix) <- pars
-  colnames(post_matrix) <- c("mean", "sd", "2.5%", "25%", "50%", "75%", "97.5%")
-  p <- c(0.025, 0.25, 0.5, 0.75, 0.975)
-  fit <- vector("list", 6)
-  names(fit) <- pars[1:6]
-  for (i in pars[! pars %in% c("beta", "psi")]) {
-    fit[[i]] <- fitdist(post_samples = x$post$H1, what = i)
-    post_matrix[i, "mean"] <- mean(x$post$H1[[i]])
-    post_matrix[i, "sd"] <- sd(x$post$H1[[i]])
-    post_matrix[i,3:7] <- qposterior(p = p, what = i,
-                                           fit = fit[[i]],
-                                           hypothesis = "H1")
-  }
-  post_matrix["psi",] <- post_matrix["logor",]
-  post_matrix["beta","mean"] <- mean(x$post$H1$beta)
-  post_matrix["beta","sd"] <- sd(x$post$H1$beta)
-  post_matrix["beta",3:7] <- quantile(x$post$H1$beta, probs = p)
-
   cat("Bayesian A/B Test Summary:",
       "\n\n Bayes Factors:",
-      "\n\n BF10: ", round(x$bf$bf10, x$digits),
-      "\n BF+0: ", round(x$bf$bfplus0, x$digits),
-      "\n BF-0: ", round(x$bf$bfminus0, x$digits),
+      "\n\n BF10: ", round(x$bf$bf10, x$input$digits),
+      "\n BF+0: ", round(x$bf$bfplus0, x$input$digits),
+      "\n BF-0: ", round(x$bf$bfminus0, x$input$digits),
       "\n\n",
       " Prior Probabilities Hypotheses:",
       "\n\n ",
-      paste(hypotheses[index], round(x$input$prior_prob[index], x$digits),
+      paste(hypotheses[index], round(x$input$prior_prob[index], x$input$digits),
             sep = ": ", collapse = "\n "),
       "\n\n",
       " Posterior Probabilities Hypotheses:",
       "\n\n ",
-      paste(hypotheses[index], round(x$post_prob[index], x$digits),
+      paste(hypotheses[index], round(x$post_prob[index], x$input$digits),
             sep = ": ", collapse = "\n "),
       "\n\n ",
-      paste0("Posterior Summary for H1 (based on ",
+      paste0("Posterior Summary under H1 (based on ",
              x$input$nsamples, " samples):"),
       "\n\n", sep = "")
-      print(round(post_matrix, x$digits), ...)
+      print(round(x$post$post_summary, x$input$digits), ...)
 
 }
 
@@ -123,5 +145,35 @@ print.ab <- function(x, ...) {
       paste(hypotheses[index], round(x$post_prob[index], 4),
             sep = ": ", collapse = "\n "), "\n",
       sep = "")
+
+}
+
+#' @rdname ab-methods
+#' @method plot ab
+#' @export
+plot.ab <- function(x, ...) {
+
+  if (x$input$posterior) {
+    post_samples <- x$post$H1
+  } else {
+    x <- ab_test(data = x$input$data,
+                 prior_par = x$input$prior_par,
+                 prior_prob = x$input$prior_prob,
+                 nsamples = x$input$nsamples,
+                 is_df = x$input$is_df,
+                 posterior = TRUE)
+  }
+
+  userask <- grDevices::devAskNewPage()
+  grDevices::devAskNewPage(ask = TRUE)
+
+  prob_wheel(x, type = "prior")
+  prob_wheel(x, type = "posterior")
+  # plot_posterior(x, what = "logor")
+  # plot_posterior(x, what = "p1p2")
+  # plot_posterior(x, what = "arisk")
+  # plot_posterior(x, what = "rrisk")
+
+  grDevices::devAskNewPage(ask = userask)
 
 }

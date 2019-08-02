@@ -5,13 +5,16 @@
 \alias{summary.ab}
 \alias{print.summary.ab}
 \alias{print.ab}
+\alias{plot.ab}
 \title{Methods for ab objects}
 \usage{
-\method{summary}{ab}(object, digits = 3, ...)
+\method{summary}{ab}(object, digits = 3, raw = FALSE, ...)
 
 \method{print}{summary.ab}(x, ...)
 
 \method{print}{ab}(x, ...)
+
+\method{plot}{ab}(x, ...)
 }
 \arguments{
 \item{object, x}{object of class \code{ab} as returned from
@@ -19,15 +22,27 @@
 
 \item{digits}{number of digits to print for the summary.}
 
+\item{raw}{if \code{TRUE}, the raw posterior samples are used to estimate the
+mean, sd, and quantiles for the summary of the posterior. If \code{FALSE},
+parametric fits to the marginal posteriors are used to obtain the mean, sd,
+and quantiles. Specifically, a normal distribution is fitted for \code{psi
+(logor)} and \code{beta}; a log-normal distribution is fitted for \code{or}
+and \code{rrisk}; beta distributions are fitted for \code{p1} and
+\code{p2}; a scaled beta distribution is fitted for \code{arisk}. These
+distributional fits are also used in \code{\link{plot_posterior}}.}
+
 \item{...}{further arguments, currently ignored.}
 }
 \value{
 The \code{summary} methods returns the \code{ab} object that is
   guaranteed to contain posterior samples (i.e., it adds posterior samples if
-  they were not included already). Additionally, the list output contains the
-  number of digits to print for the posterior summary.
+  they were not included already). Additionally, it adds to the object a
+  posterior summary matrix (i.e., \code{ab$post$post_summary}) for the
+  posterior under H1 and the arguments \code{digits} (used for printing) and
+  \code{raw} (under \code{ab$input}).
 
-  The \code{print} methods simply print and return nothing.
+  The \code{print} methods simply print and return nothing. Likewise, the
+  \code{plot} method simply plots and returns nothing.
 }
 \description{
 Methods defined for objects returned from the \code{\link{ab_test}} function.

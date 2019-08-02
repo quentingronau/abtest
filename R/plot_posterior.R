@@ -358,7 +358,7 @@ fitdist <- function(post_samples, what) {
   m <- mean(samples)
   v <- var(samples)
 
-  if (what == "logor") {
+  if (what %in% c("logor", "beta")) {
     family <- "normal"
     pars <- list(mean = m, sd = sqrt(v))
   } else if (what %in% c("or", "rrisk")) {
@@ -378,6 +378,53 @@ fitdist <- function(post_samples, what) {
 
   out <- list(what = what, family = family, pars = pars)
   return(out)
+
+}
+
+mean_posterior <- function(fit) {
+
+  what <- fit$what
+  pars <- fit$pars
+
+  if (what %in% c("logor", "beta")) {
+    m <- pars[["mean"]]
+  } else if (what %in% c("or", "rrisk")) {
+    m <- exp(pars[["meanlog"]] + pars[["sdlog"]]^2 / 2)
+  } else if (what == "arisk") {
+    mtmp <- pars[["alpha"]] / (pars[["alpha"]] + pars[["beta"]])
+    m <- 2 * mtmp - 1
+  } else if (what %in% c("p1", "p2")) {
+    m <- pars[["alpha"]] / (pars[["alpha"]] + pars[["beta"]])
+  }
+
+  return(m)
+
+}
+
+sd_posterior <- function(fit) {
+
+  what <- fit$what
+  pars <- fit$pars
+
+  if (what %in% c("logor", "beta")) {
+    s <- pars[["sd"]]
+  } else if (what %in% c("or", "rrisk")) {
+    s2 <- (exp(pars[["sdlog"]]^2) - 1) *
+      exp(2 * pars[["meanlog"]] + pars[["sdlog"]]^2)
+    s <- sqrt(s2)
+  } else if (what == "arisk") {
+    s2tmp <- pars[["alpha"]] * pars[["beta"]]  /
+      ((pars[["alpha"]] + pars[["beta"]])^2 *
+         (pars[["alpha"]] + pars[["beta"]] + 1))
+    s <- 2 * sqrt(s2tmp)
+  } else if (what %in% c("p1", "p2")) {
+    s2 <- pars[["alpha"]] * pars[["beta"]]  /
+      ((pars[["alpha"]] + pars[["beta"]])^2 *
+         (pars[["alpha"]] + pars[["beta"]] + 1))
+    s <- sqrt(s2)
+  }
+
+  return(s)
 
 }
 
@@ -475,6 +522,10 @@ qposterior <- function(p, what, hypothesis, fit) {
       out <- qnorm(p * leftprob,
                    mean = fit$pars$mean, sd = fit$pars$sd)
     }
+
+  } else if (what == "beta") {
+
+    out <- qnorm(p, mean = fit$pars$mean, sd = fit$pars$sd)
 
   } else if (what %in% c("or", "rrisk")) {
 

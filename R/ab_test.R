@@ -157,7 +157,7 @@
 #'   of the hypotheses (only possible if the \code{data} object contains vectors
 #'   with the cumulative "successes"/trials).
 #'
-#' @importFrom stats dnorm median nlminb pnorm qlogis
+#' @importFrom stats dnorm median nlminb pnorm qlogis sd quantile
 #' @importFrom VGAM log1pexp
 #' @importFrom Matrix nearPD
 #' @export
@@ -630,30 +630,5 @@ ab_test <- function(data,
   class(out) <- "ab"
 
   return(out)
-
-}
-
-#' @method print ab
-#' @export
-print.ab <- function(x, ...) {
-
-  index <- x$input$prior_prob != 0
-  hypotheses <- names(x$input$prior_prob)
-  cat("Bayesian A/B Test Results:",
-      "\n\n Bayes Factors:",
-      "\n\n BF10: ", x$bf$bf10,
-      "\n BF+0: ", x$bf$bfplus0,
-      "\n BF-0: ", x$bf$bfminus0,
-      "\n\n",
-      " Prior Probabilities Hypotheses:",
-      "\n\n ",
-      paste(hypotheses[index], round(x$input$prior_prob[index], 4),
-            sep = ": ", collapse = "\n "),
-      "\n\n",
-      " Posterior Probabilities Hypotheses:",
-      "\n\n ",
-      paste(hypotheses[index], round(x$post_prob[index], 4),
-            sep = ": ", collapse = "\n "), "\n",
-      sep = "")
 
 }

@@ -15,15 +15,20 @@
 #'   distributional fits are also used in \code{\link{plot_posterior}}.
 #' @param ... further arguments, currently ignored.
 #'
-#' @return The \code{summary} methods returns the \code{ab} object that is
-#'   guaranteed to contain posterior samples (i.e., it adds posterior samples if
-#'   they were not included already). Additionally, it adds to the object a
-#'   posterior summary matrix (i.e., \code{ab$post$post_summary}) for the
-#'   posterior under H1 and the arguments \code{digits} (used for printing) and
-#'   \code{raw} (under \code{ab$input}).
+#' @return The \code{print} methods prints the Bayes factors, prior
+#'   probabilities of the hypotheses, and posterior probabilities of the
+#'   hypotheses (and returns nothing).
 #'
-#'   The \code{print} methods simply print and return nothing. Likewise, the
-#'   \code{plot} method simply plots and returns nothing.
+#'   The \code{plot} method visualizes the prior probabilities of the hypotheses
+#'   and posterior probabilities of the hypotheses (the next plots is obtained
+#'   by hitting Return) using the \code{\link{prob_wheel}} function.
+#'
+#'   The \code{summary} methods returns the \code{ab} object that is guaranteed
+#'   to contain posterior samples (i.e., it adds posterior samples if they were
+#'   not included already). Additionally, it adds to the object a posterior
+#'   summary matrix (i.e., \code{ab$post$post_summary}) for the posterior under
+#'   H1 and the arguments \code{digits} (used for printing) and \code{raw}
+#'   (added to \code{ab$input}).
 #'
 #' @name ab-methods
 NULL

@@ -42,9 +42,9 @@ prob_wheel <- function(x, type = "posterior") {
   index <- p != 0
   p[p == 0] <- 1e-100 # to avoid not plotting the correct colors for extreme cases
 
+  op <- par(xpd = TRUE, mar = c(0, 2, 0, 1))
   plot(1, type = "n", axes = FALSE, xlab = "", ylab = "",
-       xlim = c(0.5, 1.5), ylim = c(0.5, 1.5))
-  op <- par(xpd = TRUE)
+       xlim = c(0.5, 1.5), ylim = c(0.5, 1.5), asp = 1 / 10)
   #col <- c("firebrick", "grey70", "dodgerblue", "darkgoldenrod1")
   col <- c(RColorBrewer::brewer.pal(8, name = "Dark2")[2],
            RColorBrewer::brewer.pal(8, name = "Dark2")[8],

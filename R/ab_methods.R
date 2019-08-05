@@ -174,10 +174,6 @@ plot.ab <- function(x, ...) {
 
   prob_wheel(x, type = "prior")
   prob_wheel(x, type = "posterior")
-  # plot_posterior(x, what = "logor")
-  # plot_posterior(x, what = "p1p2")
-  # plot_posterior(x, what = "arisk")
-  # plot_posterior(x, what = "rrisk")
 
   grDevices::devAskNewPage(ask = userask)
 

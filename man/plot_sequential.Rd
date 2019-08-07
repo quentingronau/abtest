@@ -4,7 +4,7 @@
 \alias{plot_sequential}
 \title{Plot Sequential Analysis}
 \usage{
-plot_sequential(x, thin = 1, ...)
+plot_sequential(x, thin = 1, cores = 1, ...)
 }
 \arguments{
 \item{x}{object of class \code{"ab"}. Note that the \code{"ab"} object needs
@@ -14,6 +14,8 @@ cumulative sequences of "successes"/trials.}
 \item{thin}{allows the user to skip every \eqn{k}th data point for plotting,
 where the number \eqn{k} is specified via \code{thin}. For instance, in
 case \code{thin = 2}, only every second element of the data is displayed.}
+
+\item{cores}{number of cores used for the computations.}
 
 \item{...}{further arguments}
 }
@@ -28,6 +30,10 @@ The plot shows the posterior probabilities of the hypotheses as a
   \code{\link{prob_wheel}}) visualize the prior probabilities of the
   hypotheses and the posterior probabilities of the hypotheses after taking
   into account all available data.
+
+  N.B.: This plot has been designed to look good in the following size: In
+  inches, 530 / 72 (width) by 400 / 72 (height); in pixels, 530 (width) by
+  400 (height).
 }
 \examples{
 ### 1.

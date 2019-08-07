@@ -8,6 +8,7 @@
 #' @param thin allows the user to skip every \eqn{k}th data point for plotting,
 #'   where the number \eqn{k} is specified via \code{thin}. For instance, in
 #'   case \code{thin = 2}, only every second element of the data is displayed.
+#' @param cores number of cores used for the computations.
 #' @param ... further arguments
 #' @details The plot shows the posterior probabilities of the hypotheses as a
 #'   function of the total number of observations across the experimental and
@@ -16,6 +17,10 @@
 #'   hypotheses and the posterior probabilities of the hypotheses after taking
 #'   into account all available data.
 #'
+#'   N.B.: This plot has been designed to look good in the following size: In
+#'   inches, 530 / 72 (width) by 400 / 72 (height); in pixels, 530 (width) by
+#'   400 (height).
+#'
 #' @author Quentin F. Gronau
 #' @example examples/example.plot_sequential.R
 #' @importFrom graphics grconvertX grconvertY points text
@@ -23,6 +28,7 @@
 #' @export
 plot_sequential <- function(x,
                             thin = 1,
+                            cores = 1,
                             ...) {
 
   # make sure that object is of class ab
@@ -54,29 +60,33 @@ plot_sequential <- function(x,
   nsteps <- length(index)
   n <- vapply(index, function(i) data$n1[i] + data$n2[i], 0)
 
-  ab <- lapply(index, FUN = function(i) {
+  if (cores == 1) {
 
-    data_tmp <- list(y1 = data$y1[i],
-                     n1 = data$n1[i],
-                     y2 = data$y2[i],
-                     n2 = data$n2[i])
+    out <- lapply(index,
+                  FUN = compute_ab_seq,
+                  ab = x,
+                  data = data,
+                  ntotal = ntotal)
 
+  } else if (cores > 1) {
 
-    if (data_tmp$n1 == 0 || data_tmp$n2 == 0) {
-      ab <- list(post_prob = x$input$prior_prob)
-    } else if (i == ntotal) {
-      ab <- x
+    if (.Platform$OS.type == "unix") {
+
+      out <- parallel::mclapply(index, compute_ab_seq, mc.cores = cores,
+                                   ab = x, data = data, ntotal = ntotal)
+
     } else {
-      ab <- ab_test(data = data_tmp,
-                    prior_par = x$input$prior_par,
-                    prior_prob = x$input$prior_prob,
-                    nsamples = x$input$nsamples,
-                    is_df = x$input$is_df)
+
+      cl <- parallel::makeCluster(cores)
+      parallel::clusterExport(cl, c("x", "index", "data", "ntotal", "ab_test",
+                                    "compute_ab_seq"))
+      out <- parallel::parLapply(cl = cl, X = index, fun = compute_ab_seq,
+                                 ab = x, data = data, ntotal = ntotal)
+      parallel::stopCluster(cl)
+
     }
 
-    return(ab)
-
-  })
+  }
 
   xticks <- pretty(c(0, data$n1[length(data$n1)] +
                        data$n2[length(data$n2)]))
@@ -94,7 +104,7 @@ plot_sequential <- function(x,
 
   op <- par(mar = c(5.6, 6, 7, 7) + 0.1, las = 1, xpd = TRUE)
   plot(1, 1, xlim = xlim, ylim = ylim, ylab = "", xlab = "",
-       type = "n", axes = FALSE, asp = 300)
+       type = "n", axes = FALSE, asp = 620)
 
   axis(1, at = xticks, cex.axis = cexAxis, lwd = lwdAxis)
   axis(2, at = yticks, cex.axis = cexAxis, lwd = lwdAxis)
@@ -107,10 +117,10 @@ plot_sequential <- function(x,
   for (hyp in names(hyp_index[hyp_index])) {
 
     values <- c(x$input$prior_prob[hyp],
-                vapply(ab, FUN = function(y) y$post_prob[hyp],
+                vapply(out, FUN = function(y) y$post_prob[hyp],
                        FUN.VALUE = 0))
 
-    if (length(ab) <= 60) {
+    if (length(out) <= 60) {
       lines(c(0, n), values, col = col[hyp], lwd = 2, type = "c")
       points(c(0, n), values, pch = 21, bg = col[hyp], cex = cexPoints,
              lwd = 1.3)
@@ -200,5 +210,29 @@ plot_sequential <- function(x,
                    code = 2, length = 0.1, lwd = 2)
 
   par(op)
+
+}
+
+compute_ab_seq <- function(i, ab, data, ntotal) {
+
+  data_tmp <- list(y1 = data$y1[i],
+                   n1 = data$n1[i],
+                   y2 = data$y2[i],
+                   n2 = data$n2[i])
+
+
+  if (data_tmp$n1 == 0 || data_tmp$n2 == 0) {
+    out <- list(post_prob = ab$input$prior_prob)
+  } else if (i == ntotal) {
+    out <- ab
+  } else {
+    out <- ab_test(data = data_tmp,
+                  prior_par = ab$input$prior_par,
+                  prior_prob = ab$input$prior_prob,
+                  nsamples = ab$input$nsamples,
+                  is_df = ab$input$is_df)
+  }
+
+  return(out)
 
 }

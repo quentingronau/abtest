@@ -15,6 +15,7 @@
 #'   interval \code{mu_range} is partitioned.
 #' @param sigma_steps numeric value that specifies in how many discrete steps
 #'   the interval \code{sigma_range} is partitioned.
+#' @param cores number of cores used for the computations.
 #' @param ... further arguments passed to \code{filled.contour}.
 #' @details The plot shows how the Bayes factor changes as a function of the
 #'   normal prior location parameter \code{mu_psi} and the normal prior scale
@@ -23,6 +24,8 @@
 #'
 #' @return Returns a \code{data.frame} with the \code{mu_psi} values,
 #'   \code{sigma_psi} values, and corresponding (log) Bayes factors.
+#'
+#' @example examples/example.plot_robustness.R
 #'
 #' @author Quentin F. Gronau
 #' @export
@@ -33,6 +36,7 @@ plot_robustness <- function(x,
                             sigma_range = c(0.3, 1),
                             mu_steps = 40,
                             sigma_steps = 40,
+                            cores = 1,
                             ...) {
 
   # make sure that object is of class ab
@@ -59,20 +63,29 @@ plot_robustness <- function(x,
   prior_par_matrix <- expand.grid(mu, sigma)
   colnames(prior_par_matrix) <- c("mu_psi", "sigma_psi")
 
-  logbfs <- apply(prior_par_matrix, 1, function(y) {
+  if (cores == 1) {
 
-    prior_par_i <- list(mu_psi = y[["mu_psi"]],
-                        sigma_psi = y[["sigma_psi"]],
-                        mu_beta = x$input$prior_par$mu_beta,
-                        sigma_beta = x$input$prior_par$sigma_beta)
-    ab_test(data = x$input$data,
-            prior_par = prior_par_i,
-            prior_prob = x$input$prior_prob,
-            nsamples = x$input$nsamples,
-            is_df = x$input$is_df,
-            posterior = FALSE)$logbf
+    logbfs <- apply(prior_par_matrix, 1, compute_logbf, ab = x)
 
-  })
+  } else if (cores > 1) {
+
+    l <- lapply(seq_len(nrow(prior_par_matrix)),
+                function(i) prior_par_matrix[i,])
+
+    if (.Platform$OS.type == "unix") {
+
+      logbfs <- parallel::mclapply(l, compute_logbf, mc.cores = cores, ab = x)
+
+    } else {
+
+      cl <- parallel::makeCluster(cores)
+      parallel::clusterExport(cl, c("x", "l", "ab_test", "compute_logbf"))
+      logbfs <- parallel::parLapply(cl = cl, X = l, fun = compute_logbf, ab = x)
+      parallel::stopCluster(cl)
+
+    }
+
+  }
 
   if (bftype %in% c("BF10", "BF+0", "BF-0")) {
 
@@ -123,5 +136,20 @@ plot_robustness <- function(x,
   out <- as.data.frame(out)
 
   invisible(out)
+
+}
+
+compute_logbf <- function(y, ab) {
+
+  prior_par_i <- list(mu_psi = y[["mu_psi"]],
+                      sigma_psi = y[["sigma_psi"]],
+                      mu_beta = ab$input$prior_par$mu_beta,
+                      sigma_beta = ab$input$prior_par$sigma_beta)
+  ab_test(data = ab$input$data,
+          prior_par = prior_par_i,
+          prior_prob = ab$input$prior_prob,
+          nsamples = ab$input$nsamples,
+          is_df = ab$input$is_df,
+          posterior = FALSE)$logbf
 
 }

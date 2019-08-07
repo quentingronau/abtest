@@ -6,7 +6,7 @@
 \usage{
 plot_robustness(x, bftype = "BF10", log = FALSE, mu_range = c(0,
   0.3), sigma_range = c(0.3, 1), mu_steps = 40, sigma_steps = 40,
-  ...)
+  cores = 1, ...)
 }
 \arguments{
 \item{x}{object of class \code{"ab"}.}
@@ -29,6 +29,8 @@ interval \code{mu_range} is partitioned.}
 \item{sigma_steps}{numeric value that specifies in how many discrete steps
 the interval \code{sigma_range} is partitioned.}
 
+\item{cores}{number of cores used for the computations.}
+
 \item{...}{further arguments passed to \code{filled.contour}.}
 }
 \value{
@@ -44,6 +46,21 @@ The plot shows how the Bayes factor changes as a function of the
   normal prior location parameter \code{mu_psi} and the normal prior scale
   parameter \code{sigma_psi} (i.e., a prior sensitivity analysis with respect
   to the normal prior on the test-relevant log odds ratio).
+}
+\examples{
+\dontrun{
+# synthetic data
+data <- list(y1 = 10, n1 = 28, y2 = 14, n2 = 26)
+
+# Bayesian A/B test with default settings
+ab <- ab_test(data = data)
+
+# plot robustness check (i.e., prior sensitivity analysis)
+p <- plot_robustness(ab)
+
+# returned object contains the Bayes factors for the different prior settings
+head(p)
+}
 }
 \author{
 Quentin F. Gronau

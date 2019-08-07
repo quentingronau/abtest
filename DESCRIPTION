@@ -1,7 +1,7 @@
 Package: abtest
 Type: Package
 Title: Bayesian A/B Testing
-Version: 0.1.4
+Version: 0.2.0
 Authors@R: c(person(given="Quentin F.", family="Gronau", role=c("aut", "cre"),
              email="Quentin.F.Gronau@gmail.com"),
              person(given="Akash", family="Raj", role="ctb"),
@@ -20,7 +20,8 @@ Imports: Rcpp (>= 0.12.14),
          plotrix,
          grDevices,
          RColorBrewer,
-         Matrix
+         Matrix,
+         parallel
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
 Suggests: testthat

@@ -25,6 +25,11 @@ plot_sequential <- function(x,
                             thin = 1,
                             ...) {
 
+  # make sure that object is of class ab
+  if ( ! inherits(x, "ab")) {
+    stop("x needs to be of class 'ab'", call. = FALSE)
+  }
+
   # plotting settings (maybe put in arguments at some point)
   lwd <- 2
   cexPoints <- 1.4

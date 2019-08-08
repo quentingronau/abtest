@@ -1,3 +1,9 @@
+CHANGES IN abtest VERSION 0.2.0
+
+  * Added plot_robustness function
+  * Enabled multicore computing for plot_sequential
+  * Fixed aspect ratio for plots including wheels
+
 CHANGES IN abtest VERSION 0.1.3
 
   * Fixed bug in internal functions that yields incorrect results for the case when sigma_psi is not equal to sigma_beta

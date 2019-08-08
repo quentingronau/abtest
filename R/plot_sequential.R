@@ -73,7 +73,7 @@ plot_sequential <- function(x,
     if (.Platform$OS.type == "unix") {
 
       out <- parallel::mclapply(index, compute_ab_seq, mc.cores = cores,
-                                   ab = x, data = data, ntotal = ntotal)
+                                ab = x, data = data, ntotal = ntotal)
 
     } else {
 

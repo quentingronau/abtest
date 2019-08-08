@@ -104,7 +104,7 @@ plot_sequential <- function(x,
 
   op <- par(mar = c(5.6, 6, 7, 7) + 0.1, las = 1, xpd = TRUE)
   plot(1, 1, xlim = xlim, ylim = ylim, ylab = "", xlab = "",
-       type = "n", axes = FALSE, asp = 620)
+       type = "n", axes = FALSE, asp = 620, ...)
 
   axis(1, at = xticks, cex.axis = cexAxis, lwd = lwdAxis)
   axis(2, at = yticks, cex.axis = cexAxis, lwd = lwdAxis)

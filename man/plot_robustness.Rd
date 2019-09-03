@@ -5,7 +5,7 @@
 \title{Plot Bayes Factor Robustness Check}
 \usage{
 plot_robustness(x, bftype = "BF10", log = FALSE, mu_range = c(0,
-  0.3), sigma_range = c(0.3, 1), mu_steps = 40, sigma_steps = 40,
+  0.3), sigma_range = c(0.25, 1), mu_steps = 40, sigma_steps = 40,
   cores = 1, ...)
 }
 \arguments{

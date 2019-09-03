@@ -31,9 +31,9 @@ The plot shows the posterior probabilities of the hypotheses as a
   hypotheses and the posterior probabilities of the hypotheses after taking
   into account all available data.
 
-  N.B.: This plot has been designed to look good in the following size: In
-  inches, 530 / 72 (width) by 400 / 72 (height); in pixels, 530 (width) by
-  400 (height).
+  \strong{N.B.: This plot has been designed to look good in the following
+  format: In inches, 530 / 72 (width) by 400 / 72 (height); in pixels, 530
+  (width) by 400 (height).}
 }
 \examples{
 ### 1.
@@ -49,21 +49,15 @@ data <- list(y1 = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4),
 ab <- ab_test(data = data)
 print(ab)
 
-# produce sequential plot of posterior probabilities of the hypotheses
-plot_sequential(ab)
-
 \donttest{
-
-# example of good width and height values for saving to file
+# produce sequential plot of posterior probabilities of the hypotheses
+# (using recommended width and height values for saving to file)
 cairo_pdf(file.path(tempdir(), "test_plot.pdf"),
           width = 530 / 72, height = 400 / 72)
 plot_sequential(ab)
 dev.off()
-
 }
-
 \dontrun{
-
 ### 2.
 data(seqdata)
 
@@ -72,14 +66,11 @@ ab2 <- ab_test(data = seqdata)
 print(ab2)
 
 # produce sequential plot of posterior probabilities of the hypotheses
-plot_sequential(ab2, thin = 4)
-
-# example of good width and height values for saving to file
+# (using recommended width and height values for saving to file)
 cairo_pdf(file.path(tempdir(), "test_plot2.pdf"),
           width = 530 / 72, height = 400 / 72)
-plot_sequential(ab2)
+plot_sequential(ab2, thin = 4)
 dev.off()
-
 }
 }
 \author{

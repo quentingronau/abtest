@@ -17,9 +17,9 @@
 #'   hypotheses and the posterior probabilities of the hypotheses after taking
 #'   into account all available data.
 #'
-#'   N.B.: This plot has been designed to look good in the following size: In
-#'   inches, 530 / 72 (width) by 400 / 72 (height); in pixels, 530 (width) by
-#'   400 (height).
+#'   \strong{N.B.: This plot has been designed to look good in the following
+#'   format: In inches, 530 / 72 (width) by 400 / 72 (height); in pixels, 530
+#'   (width) by 400 (height).}
 #'
 #' @author Quentin F. Gronau
 #' @example examples/example.plot_sequential.R

@@ -6,4 +6,4 @@ CHANGES IN abtest VERSION 0.2.0
 
 CHANGES IN abtest VERSION 0.1.3
 
-  * Fixed bug in internal functions that yields incorrect results for the case when sigma_psi is not equal to sigma_beta
+  * Fixed bug in internal functions that yielded incorrect results for the case when sigma_psi is not equal to sigma_beta

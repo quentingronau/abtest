@@ -1,5 +1,9 @@
 CHANGES IN abtest VERSION 0.2.0
 
+  * Removed dependency on VGAM package
+
+CHANGES IN abtest VERSION 0.2.0
+
   * Added plot_robustness function
   * Enabled multicore computing for plot_sequential
   * Fixed aspect ratio for plots including wheels

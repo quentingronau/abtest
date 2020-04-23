@@ -1,7 +1,7 @@
 Package: abtest
 Type: Package
 Title: Bayesian A/B Testing
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(person(given="Quentin F.", family="Gronau", role=c("aut", "cre"),
              email="Quentin.F.Gronau@gmail.com"),
              person(given="Akash", family="Raj", role="ctb"),
@@ -15,7 +15,7 @@ Depends: R (>= 3.0.0)
 Imports: Rcpp (>= 0.12.14),
          mvtnorm,
          sn,
-         VGAM,
+         qgam,
          truncnorm,
          plotrix,
          grDevices,

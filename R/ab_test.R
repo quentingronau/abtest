@@ -158,7 +158,7 @@
 #'   with the cumulative "successes"/trials).
 #'
 #' @importFrom stats dnorm median nlminb pnorm qlogis sd quantile
-#' @importFrom VGAM log1pexp
+#' @importFrom qgam log1pexp
 #' @importFrom Matrix nearPD
 #' @export
 ab_test <- function(data,

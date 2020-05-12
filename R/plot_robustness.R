@@ -5,7 +5,7 @@
 #' @param x object of class \code{"ab"}.
 #' @param bftype character that specifies which Bayes factor is plotted. Either
 #'   \code{"BF10"}, \code{"BF01"}, \code{"BF+0"}, \code{"BF0+"}, \code{"BF-0"},
-#'   or \code{"BF-0"}.
+#'   or \code{"BF0-"}.
 #' @param log Boolean that specifies whether the log Bayes factor is plotted.
 #' @param mu_range numeric vector of length two that specifies the range of
 #'   \code{mu_psi} values to consider.

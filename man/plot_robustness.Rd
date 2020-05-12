@@ -13,7 +13,7 @@ plot_robustness(x, bftype = "BF10", log = FALSE, mu_range = c(0,
 
 \item{bftype}{character that specifies which Bayes factor is plotted. Either
 \code{"BF10"}, \code{"BF01"}, \code{"BF+0"}, \code{"BF0+"}, \code{"BF-0"},
-or \code{"BF-0"}.}
+or \code{"BF0-"}.}
 
 \item{log}{Boolean that specifies whether the log Bayes factor is plotted.}
 

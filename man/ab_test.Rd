@@ -18,7 +18,10 @@ needs to be an integer. Alternatively, the user can provide for each of the
 elements a vector with a cumulative sequence of "successes"/trials. This
 allows the user to produce a sequential plot of the posterior probabilities
 for each hypothesis by passing the result object of class \code{"ab"} to
-the \code{\link{plot_sequential}} function.}
+the \code{\link{plot_sequential}} function. Sequential data can also be
+provided in form of a data frame or matrix that has the columns "dependent"
+(containing only 0 and 1 to indicate the binary outcome) and "group"
+(containing only 1 and 2 to indicate the group membership).}
 
 \item{prior_par}{list with prior parameters. This list needs to contain the
 following elements: \code{mu_psi} (prior mean for the normal prior on the
@@ -146,7 +149,8 @@ plot_posterior(x = ab4, what = "logor")
 Kass, R. E., & Vaidyanathan, S. K. (1992). Approximate Bayes
   factors and orthogonal parameters, with application to testing equality of
   two binomial proportions. \emph{Journal of the Royal Statistical Society,
-  Series B, 54}, 129-144. \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
+  Series B, 54}, 129-144.
+  \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
 }
 \seealso{
 \code{\link{elicit_prior}} allows the user to elicit a prior based

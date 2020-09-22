@@ -3,8 +3,7 @@
 #' sequentially.
 #' @title Plot Sequential Analysis
 #' @param x object of class \code{"ab"}. Note that the \code{"ab"} object needs
-#'   to contain sequential data, that is, the user needs to have provided
-#'   cumulative sequences of "successes"/trials.
+#'   to contain sequential data.
 #' @param thin allows the user to skip every \eqn{k}th data point for plotting,
 #'   where the number \eqn{k} is specified via \code{thin}. For instance, in
 #'   case \code{thin = 2}, only every second element of the data is displayed.

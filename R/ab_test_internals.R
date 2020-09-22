@@ -469,3 +469,21 @@ inverse_hessian_minlminus <- function(par, data, sigma_beta = 1,
   return(inv_hessian)
 
 }
+
+#--------------------------------------------------------------------------
+# Function for converting data
+#--------------------------------------------------------------------------
+
+long2cumulative <- function(data) {
+
+
+  y1 <- cumsum(data[,"dependent"] & data[,"group"] == 1)
+  n1 <- cumsum(data[,"group"] == 1)
+  y2 <- cumsum(data[,"dependent"] & data[,"group"] == 2)
+  n2 <- cumsum(data[,"group"] == 2)
+
+  data_cumulative <- list(y1 = y1, n1 = n1, y2 = y2, n2 = n2)
+
+  return(data_cumulative)
+
+}

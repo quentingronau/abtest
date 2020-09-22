@@ -8,8 +8,7 @@ plot_sequential(x, thin = 1, cores = 1, ...)
 }
 \arguments{
 \item{x}{object of class \code{"ab"}. Note that the \code{"ab"} object needs
-to contain sequential data, that is, the user needs to have provided
-cumulative sequences of "successes"/trials.}
+to contain sequential data.}
 
 \item{thin}{allows the user to skip every \eqn{k}th data point for plotting,
 where the number \eqn{k} is specified via \code{thin}. For instance, in
@@ -57,19 +56,41 @@ cairo_pdf(file.path(tempdir(), "test_plot.pdf"),
 plot_sequential(ab)
 dev.off()
 }
-\dontrun{
+
 ### 2.
+
+# synthetic sequential data (observations alternate between the groups)
+# this time provided in the alternative format
+data2 <- data.frame(dependent = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+                                  0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
+                       group = rep(c(1, 2), 10))
+
+# conduct Bayesian A/B test with default settings
+ab2 <- ab_test(data = data2)
+print(ab2)
+
+\donttest{
+  # produce sequential plot of posterior probabilities of the hypotheses
+  # (using recommended width and height values for saving to file)
+  cairo_pdf(file.path(tempdir(), "test_plot2.pdf"),
+            width = 530 / 72, height = 400 / 72)
+  plot_sequential(ab2)
+  dev.off()
+}
+
+\dontrun{
+### 3.
 data(seqdata)
 
 # conduct Bayesian A/B test with default settings
-ab2 <- ab_test(data = seqdata)
-print(ab2)
+ab3 <- ab_test(data = seqdata)
+print(ab3)
 
 # produce sequential plot of posterior probabilities of the hypotheses
 # (using recommended width and height values for saving to file)
-cairo_pdf(file.path(tempdir(), "test_plot2.pdf"),
+cairo_pdf(file.path(tempdir(), "test_plot3.pdf"),
           width = 530 / 72, height = 400 / 72)
-plot_sequential(ab2, thin = 4)
+plot_sequential(ab3, thin = 4)
 dev.off()
 }
 }

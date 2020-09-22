@@ -1,4 +1,8 @@
-CHANGES IN abtest VERSION 0.2.0
+CHANGES IN abtest VERSION 0.2.2
+
+  * Enabled additional data formats
+
+CHANGES IN abtest VERSION 0.2.1
 
   * Removed dependency on VGAM package
 

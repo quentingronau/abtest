@@ -234,3 +234,26 @@ test_that("basic ab_test works", {
   }
 
 })
+
+test_that("different sequential data formats yield same result", {
+
+  set.seed(1)
+
+  data <- list(y1 = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4),
+               n1 = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10),
+               y2 = c(0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9),
+               n2 = c(0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10))
+  data_seq <- data.frame(dependent = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+                                       0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
+                         group = rep(c(1, 2), 10))
+  data_seq_mat <- as.matrix(data_seq)
+
+  ab <- ab_test(data)
+  ab_seq <- ab_test(data_seq)
+  ab_seq_mat <- ab_test(data_seq_mat)
+
+  # test that the Bayes factors match
+  expect_equal(ab_seq$bf$bf10, expected = ab$bf$bf10)
+  expect_equal(ab_seq_mat$bf$bf10, expected = ab$bf$bf10)
+
+})

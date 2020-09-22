@@ -257,3 +257,17 @@ test_that("different sequential data formats yield same result", {
   expect_equal(ab_seq_mat$bf$bf10, expected = ab$bf$bf10)
 
 })
+
+test_that("y and n alternative data specification works", {
+
+  set.seed(1)
+
+  data <- list(y1 = 11, n1 = 15, y2 = 5, n2 = 13)
+
+  ab <- ab_test(data)
+  ab2 <- ab_test(y = c(11, 5), n = c(15, 13))
+
+  # test that the Bayes factors match
+  expect_equal(ab2$bf$bf10, expected = ab$bf$bf10)
+
+})

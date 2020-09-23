@@ -53,7 +53,7 @@
 #'   allows the user to produce a sequential plot of the posterior probabilities
 #'   for each hypothesis by passing the result object of class \code{"ab"} to
 #'   the \code{\link{plot_sequential}} function. Sequential data can also be
-#'   provided in form of a data frame or matrix that has the columns "dependent"
+#'   provided in form of a data frame or matrix that has the columns "outcome"
 #'   (containing only 0 and 1 to indicate the binary outcome) and "group"
 #'   (containing only 1 and 2 to indicate the group membership). Note that the
 #'   data can also be provided by specifying the arguments \code{y} and
@@ -212,14 +212,14 @@ ab_test <- function(data = NULL,
 
     # convert data to list in case they are provided as matrix or data.frame
 
-    if (! all(c("dependent", "group") %in% colnames(data))) {
+    if (! all(c("outcome", "group") %in% colnames(data))) {
       stop('data provided as matrix or data frame needs to contain the columns
-           "dependent" and "group"',
+           "outcome" and "group"',
            call. = FALSE)
     }
 
-    if ( ! all(data[,"dependent"] %in% c(0, 1))) {
-      stop('"dependent" column can only contain 0 and 1',
+    if ( ! all(data[,"outcome"] %in% c(0, 1))) {
+      stop('"outcome" column can only contain 0 and 1',
            call. = FALSE)
     }
 

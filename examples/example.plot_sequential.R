@@ -24,21 +24,21 @@ dev.off()
 
 # synthetic sequential data (observations alternate between the groups)
 # this time provided in the alternative format
-data2 <- data.frame(dependent = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-                                  0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
-                       group = rep(c(1, 2), 10))
+data2 <- data.frame(outcome = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+                                0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
+                    group = rep(c(1, 2), 10))
 
 # conduct Bayesian A/B test with default settings
 ab2 <- ab_test(data = data2)
 print(ab2)
 
 \donttest{
-  # produce sequential plot of posterior probabilities of the hypotheses
-  # (using recommended width and height values for saving to file)
-  cairo_pdf(file.path(tempdir(), "test_plot2.pdf"),
-            width = 530 / 72, height = 400 / 72)
-  plot_sequential(ab2)
-  dev.off()
+# produce sequential plot of posterior probabilities of the hypotheses
+# (using recommended width and height values for saving to file)
+cairo_pdf(file.path(tempdir(), "test_plot2.pdf"),
+          width = 530 / 72, height = 400 / 72)
+plot_sequential(ab2)
+dev.off()
 }
 
 \dontrun{

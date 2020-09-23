@@ -243,8 +243,8 @@ test_that("different sequential data formats yield same result", {
                n1 = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10),
                y2 = c(0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9),
                n2 = c(0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10))
-  data_seq <- data.frame(dependent = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-                                       0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
+  data_seq <- data.frame(outcome = c(1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+                                     0, 1, 0, 1, 1, 1, 1, 1, 1, 0),
                          group = rep(c(1, 2), 10))
   data_seq_mat <- as.matrix(data_seq)
 

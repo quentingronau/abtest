@@ -4,8 +4,14 @@
 \alias{elicit_prior}
 \title{Elicit Prior}
 \usage{
-elicit_prior(q, prob, what = "logor", hypothesis = "H1", mu_beta = 0,
-  sigma_beta = 1)
+elicit_prior(
+  q,
+  prob,
+  what = "logor",
+  hypothesis = "H1",
+  mu_beta = 0,
+  sigma_beta = 1
+)
 }
 \arguments{
 \item{q}{vector with quantiles for the quantity of interest.}
@@ -86,7 +92,12 @@ plot_prior(prior_par = prior_par, what = "logor")
 Kass, R. E., & Vaidyanathan, S. K. (1992). Approximate Bayes
   factors and orthogonal parameters, with application to testing equality of
   two binomial proportions. \emph{Journal of the Royal Statistical Society,
-  Series B, 54}, 129-144. \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
+  Series B, 54}, 129-144.
+  \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
+
+  Gronau, Q. F., Raj K. N., A., & Wagenmakers, E.-J. (2021). Informed
+  Bayesian Inference for the A/B Test. \emph{Journal of Statistical Software,
+  100}. \doi{10.18637/jss.v100.i17}
 }
 \seealso{
 The \code{\link{plot_prior}} function allows the user to visualize

@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // minl_cpp
 double minl_cpp(double beta, double psi, int y1, int y2, int n1, int n2, double mu_beta, double sigma_beta, double mu_psi, double sigma_psi);
 RcppExport SEXP _abtest_minl_cpp(SEXP betaSEXP, SEXP psiSEXP, SEXP y1SEXP, SEXP y2SEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP mu_betaSEXP, SEXP sigma_betaSEXP, SEXP mu_psiSEXP, SEXP sigma_psiSEXP) {

@@ -5,7 +5,9 @@
 \name{seqdata}
 \alias{seqdata}
 \title{Synthetic Sequential Data}
-\format{A list with 4 elements.}
+\format{
+A list with 4 elements.
+}
 \usage{
 seqdata
 }

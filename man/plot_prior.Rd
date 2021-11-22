@@ -4,8 +4,13 @@
 \alias{plot_prior}
 \title{Plot Prior}
 \usage{
-plot_prior(prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0,
-  sigma_beta = 1), what = "logor", hypothesis = "H1", p1 = 0.5, ...)
+plot_prior(
+  prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0, sigma_beta = 1),
+  what = "logor",
+  hypothesis = "H1",
+  p1 = 0.5,
+  ...
+)
 }
 \arguments{
 \item{prior_par}{list with prior parameters. This list needs to contain the

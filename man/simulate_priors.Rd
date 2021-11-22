@@ -4,8 +4,11 @@
 \alias{simulate_priors}
 \title{Simulate from Parameter Priors}
 \usage{
-simulate_priors(nsamples, prior_par = list(mu_psi = 0, sigma_psi = 1,
-  mu_beta = 0, sigma_beta = 1), hypothesis = "H1")
+simulate_priors(
+  nsamples,
+  prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0, sigma_beta = 1),
+  hypothesis = "H1"
+)
 }
 \arguments{
 \item{nsamples}{number of samples.}

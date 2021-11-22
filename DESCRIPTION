@@ -1,13 +1,14 @@
 Package: abtest
 Type: Package
 Title: Bayesian A/B Testing
-Version: 0.2.2
+Version: 1.0.0
 Authors@R: c(person(given="Quentin F.", family="Gronau", role=c("aut", "cre"),
              email="Quentin.F.Gronau@gmail.com"),
              person(given="Akash", family="Raj", role="ctb"),
              person(given="Eric-Jan", family="Wagenmakers", role="ths"))
 Description: Provides functions for Bayesian A/B testing including prior elicitation
-    options based on Kass and Vaidyanathan (1992) <doi:10.1111/j.2517-6161.1992.tb01868.x>.
+    options based on Kass and Vaidyanathan (1992) <doi:10.1111/j.2517-6161.1992.tb01868.x>. 
+    Gronau, Raj K. N., & Wagenmakers (2021) <doi:10.18637/jss.v100.i17>.
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
@@ -23,5 +24,5 @@ Imports: Rcpp (>= 0.12.14),
          Matrix,
          parallel
 LinkingTo: Rcpp
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 Suggests: testthat

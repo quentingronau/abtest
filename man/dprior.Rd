@@ -4,8 +4,13 @@
 \alias{dprior}
 \title{Prior Density}
 \usage{
-dprior(x1, x2 = NULL, prior_par = list(mu_psi = 0, sigma_psi = 1,
-  mu_beta = 0, sigma_beta = 1), what = "logor", hypothesis = "H1")
+dprior(
+  x1,
+  x2 = NULL,
+  prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0, sigma_beta = 1),
+  what = "logor",
+  hypothesis = "H1"
+)
 }
 \arguments{
 \item{x1}{numeric vector with values at which the prior density should be

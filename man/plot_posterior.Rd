@@ -4,8 +4,17 @@
 \alias{plot_posterior}
 \title{Plot Posterior}
 \usage{
-plot_posterior(x, what = "logor", hypothesis = "H1", ci = 0.95,
-  p1lab = "p1", p2lab = "p2", p1adj = 0.44, p2adj = 0.56, ...)
+plot_posterior(
+  x,
+  what = "logor",
+  hypothesis = "H1",
+  ci = 0.95,
+  p1lab = "p1",
+  p2lab = "p2",
+  p1adj = 0.44,
+  p2adj = 0.56,
+  ...
+)
 }
 \arguments{
 \item{x}{object of class \code{"ab"}.}

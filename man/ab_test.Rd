@@ -4,9 +4,16 @@
 \alias{ab_test}
 \title{Bayesian A/B Test}
 \usage{
-ab_test(data = NULL, prior_par = list(mu_psi = 0, sigma_psi = 1,
-  mu_beta = 0, sigma_beta = 1), prior_prob = NULL, nsamples = 10000,
-  is_df = 5, posterior = FALSE, y = NULL, n = NULL)
+ab_test(
+  data = NULL,
+  prior_par = list(mu_psi = 0, sigma_psi = 1, mu_beta = 0, sigma_beta = 1),
+  prior_prob = NULL,
+  nsamples = 10000,
+  is_df = 5,
+  posterior = FALSE,
+  y = NULL,
+  n = NULL
+)
 }
 \arguments{
 \item{data}{list or data frame with the data. This list (data frame) needs to
@@ -159,6 +166,10 @@ Kass, R. E., & Vaidyanathan, S. K. (1992). Approximate Bayes
   two binomial proportions. \emph{Journal of the Royal Statistical Society,
   Series B, 54}, 129-144.
   \url{https://doi.org/10.1111/j.2517-6161.1992.tb01868.x}
+
+Gronau, Q. F., Raj K. N., A., & Wagenmakers, E.-J. (2021). Informed Bayesian
+Inference for the A/B Test. \emph{Journal of Statistical Software, 100}.
+\doi{10.18637/jss.v100.i17}
 }
 \seealso{
 \code{\link{elicit_prior}} allows the user to elicit a prior based

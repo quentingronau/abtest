@@ -1,0 +1,18 @@
+bibentry(bibtype = "Article",
+  title        = "Informed {B}ayesian Inference for the {A}/{B} Test",
+  author       = c(person(given = c("Quentin", "F."),
+                          family = "Gronau",
+                          email = "Quentin.F.Gronau@gmail.com"),
+                   person(given = "Akash",
+                          family = "Raj K. N."),
+                   person(given = "Eric-Jan",
+                          family = "Wagenmakers")),
+  journal      = "Journal of Statistical Software",
+  year         = "2021",
+  volume       = "100",
+  number       = "17",
+  pages        = "1--39",
+  doi          = "10.18637/jss.v100.i17",
+  header       = "To cite abtest in publications use:"
+)
+
